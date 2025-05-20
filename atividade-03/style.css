@@ -1,0 +1,90 @@
+:root {
+    --cor1: #1abc9c;   /* principal */
+    --cor2: #333;      /* navbar */
+    --cor3: #f1f1f1;   /* fundo */
+    --cor4: #ffffff;   /* branco */
+    --cor5: #2196F3;   /* botão */
+    --cor-dark-bg: #121212;
+    --cor-dark-text: #f1f1f1;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--cor3);
+    color: black;
+}
+
+body.dark-mode {
+    background-color: var(--cor-dark-bg);
+    color: var(--cor-dark-text);
+}
+
+.header {
+    background-color: var(--cor1);
+    color: var(--cor4);
+    text-align: center;
+    padding: 30px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: var(--cor2);
+    padding: 10px 20px;
+    gap: 10px;
+}
+
+.navbar a {
+    color: var(--cor4);
+    text-decoration: none;
+    padding: 15px 20px;
+}
+
+.navbar a:hover {
+    background-color: var(--cor3);
+    color: var(--cor2);
+}
+
+.main {
+    display: flex;
+    flex-wrap: wrap;
+}
+.side {
+    flex: 1;
+    padding: 20px;
+    background-color: var(--cor3);
+}
+.content {
+    flex: 3;
+    padding: 20px;
+    background-color: var(--cor4);
+}
+body.dark-mode .side,
+body.dark-mode .content {
+    background-color: var(--cor-dark-bg);
+    color: var(--cor-dark-text);
+}
+.fake-img {
+    background-color: #aaa;
+    padding: 10px;
+    height: 500px;
+    margin-bottom: 10px;
+}
+.footer {
+    background-color: var(--cor3);
+    text-align: center;
+    padding: 20px;
+}
+@media screen and (max-width: 500px) {
+    .navbar,
+    .main {
+        flex-direction: column;
+    }
+}
+.slider {
+    display: inline-block;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--cor5);
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/2560px-Flag_of_Brazil.svg.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <title>Cubo Mágico</title>
+</head>
+<body>
+    <section class="header">
+        <h1>Cubo Mágico</h1>
+        <p>A história de <strong>seis lados!</strong></p>
+    </section>
+
+    <section class="navbar">
+        <label>
+            <input id="dark-mode-toggle" type="checkbox">
+            <span class="slider">🌙</span>
+        </label>
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+        <a href="#">Link 4</a>
+    </section>
+
+    <section class="main">
+        <section class="side">
+            <h1>Sobre o Cubo</h1>
+            <p>Photo of me:</p>
+            <div class="fake-img" style="height: 40px;">Image</div>
+            <p>O Cubo de Rubik, também conhecido como buco Mágico, é um quebra-cabeça tridimensional inventado pelo professor de arquitetura
+                húngaro Ernő Rubik em 1974. O cubo é composto por 26 pequenos cubos, chamados de cubies, que podem ser girados em torno de seus eixos.
+            </p>
+            <h2>Tipos de cubo</h2>
+            <div class="fake-img" style="height: 40px;">Image</div>
+            <div class="fake-img" style="height: 40px;">Image</div>
+            <div class="fake-img" style="height: 40px;">Image</div>
+        </section>
+
+        <section class="content">
+            <h2>Descrição</h2>
+            <h5>Retirado da wikipedia em 20/05/2025</h5>
+            <div class="fake-img" style="height: 40px;">Image</div>
+            <p>
+                O cubo original confecionado por Rubik era feito de madeira, diferentemente dos cubos atuais que em geral são feitos de plástico.
+                Como os atuais, contava com 6 cores diferentes, uma emc ada um de seus lados e 3 tipos de peças diferentes: centros, meios e quinas.
+            </p>
+            <h2>História</h2>
+            <h5>Retirado da wikipedia em 20/05/2025</h5>
+            <div class="fake-img" style="height: 40px;">Image</div>
+            <p>
+                O primeiro protótipo do cubo foi fabricado em 1974[5] quando Ernő Rubik era professor do Departamento de Desenho de Interiores da Academia de Artes e Trabalhos Manuais Aplicados de Budapeste, Hungria.[6] Por mais que seja amplamente dito que o cubo foi construído como uma ferramenta para auxiliar seus alunos na compreensão de objetos 3D, seu propósito era resolver o problema estrutural de mover as partes independentemente sem que o mecanismo todo se desmanchasse.
+            </p>
+        </section>
+    </section>
+
+    <section class="footer">
+        <h4>Footer</h4>
+    </section>
+
+    <script>
+        const toggle = document.getElementById('dark-mode-toggle');
+        toggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>
