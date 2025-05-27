@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>questao_01</title>
+  <style>
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f0f0f0;
+        color: black;
+    }
+    .main {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    header {
+      background: #f16e03;
+      color: white;
+      text-align: center;
+      padding: 24px 10px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    .layout {
+      display: flex;
+      flex-direction: row;
+      min-height: 300px;
+    }
+    nav {
+      flex: 0 0 30%;
+      background: #f2c460;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    nav h2 {
+      margin-top: 0;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+    nav li {
+      margin-bottom: 10px;
+    }
+    nav a {
+      color: #276fb8;
+      text-decoration: none;
+      display: block;
+      padding: 5px;
+    }
+    nav a:hover {
+        background-color: #3b5469;
+    }
+    article {
+        flex: 1;
+        background: #f1f8e9;
+        padding: 20px;
+    }
+    .fake-img {
+        background: #aaa;
+        height: 200px;
+        margin-bottom: 10px;
+    }
+    footer {
+        background: #ececec;
+        text-align: center;
+        padding: 20px;
+        color: #444;
+    }
+    footer a {
+        color: #1976d2;
+        text-decoration: underline;
+    }
+    @media screen and (max-width: 500px) {
+        .layout {
+            flex-direction: column;
+        }
+
+        nav {
+            border-right: none;
+            border-bottom: 2px solid #222;
+        }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>Desenvolvimento de Software Web</header>
+    <section class="layout">
+      <nav>
+        <h2>Menu Lateral</h2>
+        <ul>
+          <li><a href="#">Link 1</a></li>
+          <li><a href="#">Link 2</a></li>
+          <li><a href="#">Link 3</a></li>
+          <li><a href="#">Link 4</a></li>
+        </ul>
+      </nav>
+      <article>
+        <h2>Conteúdo</h2>
+        <p>Introdução ao HTML</p>
+        <div class="fake-img">Image</div>
+        <p>Muito texto</p>
+        <div class="fake-img">Image</div>
+        <p>Pouco texto</p>
+        <div class="fake-img">Image</div>
+      </article>
+    </section>
+    <footer>
+      <a href="mailto:fulanodetal@ufc.br">fulanodetal@ufc.br</a><br />
+      2025.1<br />
+      <em>Todos os direitos reservados</em>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>questao_03</title>
+
+</head>
+<body>
+    <div class="content">
+        <img id="pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg" alt="Pokémon">
+        <div class="buttons">
+            <button id="voltar">Voltar -1</button>
+            <button id="avancar">Adiantar +1</button>
+        </div>
+    </div>
+    <script>
+        const img = document.getElementById('pokemon-img');
+        const voltar = document.getElementById('voltar');
+        const avancar = document.getElementById('avancar');
+        let currentId = 1;
+        const minId = 1;
+        const maxId = 100;
+
+        function updateImg() {
+            img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${currentId}.svg`;
+            voltar.disabled = currentId <= minId;
+            avancar.disabled = currentId >= maxId;
+        }
+
+        voltar.addEventListener('click', () => {
+            if (currentId > minId) {
+                currentId--;
+                updateImg();
+            }
+        });
+
+        avancar.addEventListener('click', () => {
+            if (currentId < maxId) {
+                currentId++;
+                updateImg();
+            }
+        });
+
+        updateImg();
+    </script>
+</body>
+</html>
