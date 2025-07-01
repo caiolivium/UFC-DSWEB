@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>COVID-19 no Mundo</title>
+  <style>
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #333; padding: 8px; text-align: center; }
+    th { background: #eee; }
+    .destaque-br { background: #dfd; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>COVID-19 – Todos os Países</h1>
+  <table id="tabela-paises">
+    <thead>
+      <tr>
+        <th>País</th>
+        <th>Casos</th>
+        <th>Mortes</th>
+        <th>Recuperados</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="4">Carregando dados...</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    async function buscarPaises() {
+      try {
+        const resp = await fetch('https://covid19-brazil-api.vercel.app/api/report/v1/countries');
+        console.log('Status da resposta:', resp.status);
+        if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
+        const json = await resp.json();
+        console.log('Dados recebidos:', json);
+        return Array.isArray(json.data) ? json.data : [];
+      } catch (err) {
+        console.error('Erro ao buscar países:', err);
+        return [];
+      }
+    }
+
+    function formataNum(num) {
+      return typeof num === 'number' ? num.toLocaleString('pt-BR') : '-';
+    }
+
+    async function main() {
+      const dados = await buscarPaises();
+      const tbody = document.querySelector('#tabela-paises tbody');
+      tbody.innerHTML = '';
+
+      if (!dados.length) {
+        tbody.innerHTML = '<tr><td colspan="4">Nenhum dado encontrado</td></tr>';
+        return;
+      }
+
+      dados.forEach(e => {
+        const tr = document.createElement('tr');
+        if (e.country?.toLowerCase() === 'brazil') {
+          tr.classList.add('destaque-br');
+        }
+
+        tr.innerHTML = `
+          <td>${e.country || '-'}</td>
+          <td>${formataNum(e.cases)}</td>
+          <td>${formataNum(e.deaths)}</td>
+          <td>${formataNum(e.recovered)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    main().catch(err => console.error('Erro inesperado:', err));
+  </script>
+</body>
+</html>

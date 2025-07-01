@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>COVID-19 no Brasil (Estados)</title>
+  <style>
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    th, td { border: 1px solid #333; padding: 8px; text-align: center; }
+    th { background: #eee; }
+    .acima-media { background: #fdd; } /* destaque linhas acima da média de falecimentos */
+    tfoot td { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>COVID-19 – Estados Brasileiros</h1>
+  <table id="tabela-estados">
+    <thead>
+      <tr>
+        <th>Estado</th>
+        <th>UF</th>
+        <th>Casos</th>
+        <th>Suspeitos</th>
+        <th>Óbitos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="5">Carregando dados...</td></tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>Médias</td><td></td>
+        <td id="media-casos"></td>
+        <td id="media-suspeitos"></td>
+        <td id="media-obitos"></td>
+      </tr>
+    </tfoot>
+  </table>
+  <p id="maior-relacao"></p>
+  <p id="menor-relacao"></p>
+
+  <script>
+    async function buscarEstados() {
+      try {
+        const resp = await fetch('https://covid19-brazil-api.vercel.app/api/report/v1'); // 🔁 CORREÇÃO DA URL
+        console.log('Status da resposta:', resp.status);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const json = await resp.json();
+        console.log('Dados recebidos:', json);
+        return Array.isArray(json.data) ? json.data : [];
+      } catch (err) {
+        console.error('Erro ao buscar dados:', err);
+        return [];
+      }
+    }
+
+    function calculaMedias(dados) {
+      let sumCasos = 0, sumSuspeitos = 0, sumObitos = 0;
+      dados.forEach(e => {
+        sumCasos += e.cases || 0;
+        sumSuspeitos += e.suspects || 0;
+        sumObitos += e.deaths || 0;
+      });
+      const n = dados.length;
+      return {
+        casos: sumCasos / n,
+        suspeitos: sumSuspeitos / n,
+        obitos: sumObitos / n
+      };
+    }
+
+    function formata(num) {
+      return typeof num === 'number' ? num.toLocaleString('pt-BR', { maximumFractionDigits: 0 }) : '-';
+    }
+
+    async function main() {
+      const dados = await buscarEstados();
+      const tbody = document.querySelector('#tabela-estados tbody');
+      tbody.innerHTML = ''; // Limpa conteúdo inicial
+
+      if (!dados.length) {
+        tbody.innerHTML = '<tr><td colspan="5">Nenhum dado encontrado</td></tr>';
+        return;
+      }
+
+      const medias = calculaMedias(dados);
+      let maiorRel = { uf: '', rel: -Infinity };
+      let menorRel = { uf: '', rel: Infinity };
+
+      dados.forEach(e => {
+        const tr = document.createElement('tr');
+        const rel = (e.cases || 0) / ((e.deaths || 1));
+
+        if ((e.deaths || 0) > medias.obitos) {
+          tr.classList.add('acima-media');
+        }
+
+        if (rel > maiorRel.rel) maiorRel = { uf: e.state, rel };
+        if (rel < menorRel.rel) menorRel = { uf: e.state, rel };
+
+        tr.innerHTML = `
+          <td>${e.state}</td>
+          <td>${e.uf}</td>
+          <td>${formata(e.cases)}</td>
+          <td>${formata(e.suspects)}</td>
+          <td>${formata(e.deaths)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('media-casos').textContent = formata(medias.casos);
+      document.getElementById('media-suspeitos').textContent = formata(medias.suspeitos);
+      document.getElementById('media-obitos').textContent = formata(medias.obitos);
+
+      document.getElementById('maior-relacao').textContent =
+        `🔼 Maior relação casos/óbitos: ${maiorRel.uf} (≈ ${maiorRel.rel.toFixed(2)})`;
+      document.getElementById('menor-relacao').textContent =
+        `🔽 Menor relação casos/óbitos: ${menorRel.uf} (≈ ${menorRel.rel.toFixed(2)})`;
+    }
+
+    main().catch(err => {
+      console.error('Erro inesperado:', err);
+    });
+  </script>
+</body>
+</html>
